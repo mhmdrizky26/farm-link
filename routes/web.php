@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\WelcomeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,37 +55,12 @@ Route::get('/single-product', function() {
     return view('user.singleproduct');
 });
 
-Route::get('/adashboard', function() {
-    return view('admin.dashboard');
+Route::get('/', [WelcomeController::class, 'index'])->name('post');
+
+Route::middleware(['auth', 'verified', 'role:user'])->group(function () {
+    Route::get('/single-news/{id}', [WelcomeController::class, 'showNews'])->name('single-news');
 });
 
-Route::get('/indexuser', function() {
-    return view('admin.user.index');
-});
-
-Route::get('/createuser', function() {
-    return view('admin.user.create');
-});
-
-Route::get('/edituser', function() {
-    return view('admin.user.edit');
-});
-
-Route::get('/indexproduk', function() {
-    return view('admin.produk.index');
-});
-
-Route::get('/createproduk', function() {
-    return view('admin.produk.create');
-});
-
-Route::get('/editproduk', function() {
-    return view('admin.produk.edit');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -88,12 +68,22 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('aadmin', function () {
-    return  '<h1>Test Admin</h1>';
-})->middleware(['auth', 'verified', 'role:admin']);
+Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('uuser', function () {
-    return  '<h1>Test User</h1>';
-})->middleware(['auth', 'verified', 'role:user']);
+    Route::get('/users', [UserController::class, 'index'])->name('user.index');
+    Route::get('/users/create', [UserController::class, 'create'])->name('user.create');
+    Route::post('/users/create', [UserController::class, 'store'])->name('user.store');
+    Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::put('/users/{id}', [UserController::class, 'update'])->name('user.update');
+    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+
+    Route::get('/produks', [ProdukController::class, 'index'])->name('produk.index');
+    Route::get('/produks/create', [ProdukController::class, 'create'])->name('produk.create');
+    Route::post('/produks', [ProdukController::class, 'store'])->name('produk.store');
+    Route::get('/produks/{id}/edit', [ProdukController::class, 'edit'])->name('produk.edit');
+    Route::put('/produks/{id}', [ProdukController::class, 'update'])->name('produk.update');
+    Route::delete('/produks/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
+});
 
 require __DIR__.'/auth.php';

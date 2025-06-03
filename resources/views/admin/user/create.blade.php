@@ -12,9 +12,8 @@
                 Form Tambah User
             </div>
             <div class="card-body">
-                <form action="#" method="POST">
-                    <!-- Ganti '#' dengan action sesuai backend -->
-                    <!-- CSRF token jika pakai Laravel -->
+                <form action="{{ route('user.store') }}" method="POST">
+                    @csrf
 
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama</label>
@@ -35,15 +34,16 @@
                         <label for="role" class="form-label">Role</label>
                         <select class="form-select" id="role" name="role" required>
                             <option value="" disabled selected>Pilih Role</option>
-                            <option value="Admin">Admin</option>
-                            <option value="User">User</option>
+                            @foreach($roles as $role)
+                                <option value="{{ $role->name }}">{{ $role->name }}</option>
+                            @endforeach
                         </select>
                     </div>
 
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-save me-1"></i> Simpan
                     </button>
-                    <a href="{{ url('/indexuser') }}" class="btn btn-secondary ms-2">
+                    <a href="{{ route('user.index') }}" class="btn btn-secondary ms-2">
                         <i class="fas fa-arrow-left me-1"></i> Kembali
                     </a>
                 </form>
@@ -51,6 +51,5 @@
         </div>
     </main>
 </div>
-
 
 @endsection

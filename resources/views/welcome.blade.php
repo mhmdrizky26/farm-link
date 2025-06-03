@@ -250,48 +250,24 @@
 			</div>
 
 			<div class="row">
+                @foreach ($produks as $produk)
 				<div class="col-lg-4 col-md-6">
 					<div class="single-latest-news">
-						<a href="{{ url('/single-news') }}"><div class="latest-news-bg news-bg-1"></div></a>
+						<a href="{{ route('single-news', $produk->id) }}">
+                            <div class="latest-news-bg news-bg-1" style="background-image: url('{{ asset('storage/' . $produk->gambar) }}');"></div>
+                        </a>
 						<div class="news-text-box">
-							<h3><a href="{{ url('/single-news') }}">You will vainly look for fruit on it in autumn.</a></h3>
+							<h3><a href="{{ route('single-news', $produk->id) }}">{{$produk->nama}}</a></h3>
 							<p class="blog-meta">
-								<span class="author"><i class="fas fa-user"></i> Admin</span>
-								<span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
+								<span class="author"><i class="fas fa-user"></i>Admin</span>
+								<span class="date"><i class="fas fa-calendar"></i> {{ $produk->created_at->format('d F, Y') }}</span>
 							</p>
-							<p class="excerpt">Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.</p>
-							<a href="{{ url('/single-news') }}" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
+							<p class="excerpt">{{$produk->deskripsi}}</p>
+							<a href="{{ route('single-news', $produk->id) }}" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-4 col-md-6">
-					<div class="single-latest-news">
-						<a href="{{ url('/single-news') }}"><div class="latest-news-bg news-bg-2"></div></a>
-						<div class="news-text-box">
-							<h3><a href="{{ url('/single-news') }}">A man's worth has its season, like tomato.</a></h3>
-							<p class="blog-meta">
-								<span class="author"><i class="fas fa-user"></i> Admin</span>
-								<span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
-							</p>
-							<p class="excerpt">Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.</p>
-							<a href="{{ url('/single-news') }}" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
-					<div class="single-latest-news">
-						<a href="{{ url('/single-news') }}"><div class="latest-news-bg news-bg-3"></div></a>
-						<div class="news-text-box">
-							<h3><a href="{{ url('/single-news') }}">Good thoughts bear good fresh juicy fruit.</a></h3>
-							<p class="blog-meta">
-								<span class="author"><i class="fas fa-user"></i> Admin</span>
-								<span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
-							</p>
-							<p class="excerpt">Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.</p>
-							<a href="{{ url('/single-news') }}" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
-						</div>
-					</div>
-				</div>
+                @endforeach
 			</div>
 			<div class="row">
 				<div class="col-lg-12 text-center">

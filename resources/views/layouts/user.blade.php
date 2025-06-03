@@ -77,7 +77,12 @@
                                             @if (Route::has('login'))
                                                 <div class="auth-buttons">
                                                     @auth
-                                                        <a href="{{ url('/dashboard') }}" class="boxed-btn">Dashboard</a>
+                                                        <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+                                                            @csrf
+                                                            <button type="submit" class="boxed-btn" style="border:none; background:none; padding:0; cursor:pointer;">
+                                                                Logout
+                                                            </button>
+                                                        </form>
                                                     @else
                                                         <a href="{{ route('login') }}" class="boxed-btn">Log in</a>
                                                         @if (Route::has('register'))

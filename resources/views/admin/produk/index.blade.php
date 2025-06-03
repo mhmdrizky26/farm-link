@@ -6,7 +6,7 @@
     <main class="container-fluid px-4">
         <h1 class="mt-4">Daftar Produk</h1>
         <div class="mb-3">
-            <a href="{{ url('/createproduk') }}" class="btn btn-primary">
+            <a href="{{ route('produk.create') }}" class="btn btn-primary">
                 <i class="fas fa-box"></i> Tambah Produk
             </a>
         </div>
@@ -25,27 +25,39 @@
                                 <th>Harga</th>
                                 <th>Stok</th>
                                 <th>Deskripsi</th>
+                                <th>Gambar</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Contoh data statis -->
-                            <tr>
-                                <td>1</td>
-                                <td>Padi</td>
-                                <td>25.000 / kg</td>
-                                <td>200 kg</td>
-                                <td>Bibit Padi</td>
-                                <td>
-                                    <a href="{{ url('/editproduk') }}" class="btn btn-sm btn-info text-white">
-                                        <i class="fas fa-edit"></i> Edit
-                                    </a>
-                                    <a href="#" class="btn btn-sm btn-danger">
-                                        <i class="fas fa-trash-alt"></i> Hapus
-                                    </a>
-                                </td>
-                            </tr>
-                            <!-- Tambahkan baris lain secara dinamis -->
+                            @foreach ($produks as $index => $produk)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $produk->nama }}</td>
+                                    <td>Rp {{ number_format($produk->harga, 0, ',', '.') }}</td>
+                                    <td>{{ $produk->stok }}</td>
+                                    <td>{{ $produk->deskripsi }}</td>
+                                    <td>
+                                        @if ($produk->gambar)
+                                            <img src="{{ Storage::url('public/' . $produk->gambar) }}" alt="Gambar {{ $produk->nama }}" width="100">
+                                        @else
+                                            Tidak ada gambar
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('produk.edit', $produk->id) }}" class="btn btn-sm btn-info text-white">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </a>
+                                        <form action="{{ route('produk.destroy', $produk->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus produk ini?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-sm btn-danger">
+                                                <i class="fas fa-trash-alt"></i> Hapus
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

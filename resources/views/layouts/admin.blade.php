@@ -19,7 +19,7 @@
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="{{ url('/adashboard') }}">
+            <a class="navbar-brand ps-3" href="{{ route('dashboard') }}">
                 <img src="{{ asset('user/assets/img/logo.png') }}" alt="Logo" class="logo-navbar">
             </a>
             <!-- Sidebar Toggle-->
@@ -27,8 +27,8 @@
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                    {{-- <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" /> --}}
+                    {{-- <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button> --}}
                 </div>
             </form>
             <!-- Navbar-->
@@ -55,29 +55,23 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="{{ url('/adashboard') }}">
+                            <a class="nav-link" href="{{ route('dashboard') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
-                            <a class="nav-link" href="{{ url('/indexuser') }}">
+                            <a class="nav-link" href="{{ route('user.index') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 User
                             </a>
-                            <a class="nav-link" href="{{ url('/indexproduk') }}">
+                            <a class="nav-link" href="{{ route('produk.index') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Product
                             </a>
                         </div>
                     </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
-                    </div>
                 </nav>
             </div>
-
             @yield('content')
-
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
