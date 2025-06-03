@@ -18,7 +18,7 @@
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
             <div>
                 <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                    <img src="{{ asset('user/assets/img/logo.png') }}" alt="Logo" class="logo-navbar mx-auto" style="max-height: 150px; max-width: 250px; height: auto; width: auto;">
                 </a>
             </div>
 
