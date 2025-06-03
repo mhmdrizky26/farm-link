@@ -18,8 +18,64 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () {
-    return view('home');
+Route::get('/about', function() {
+    return view('user.about');
+});
+
+Route::get('/cart', function() {
+    return view('user.cart');
+});
+
+Route::get('/checkout', function() {
+    return view('user.checkout');
+});
+
+Route::get('/contact', function() {
+    return view('user.contact');
+});
+
+Route::get('/news', function() {
+    return view('user.news');
+});
+
+Route::get('/shop', function() {
+    return view('user.shop');
+});
+
+Route::get('/single-news', function() {
+    return view('user.singlenews');
+});
+
+Route::get('/single-product', function() {
+    return view('user.singleproduct');
+});
+
+Route::get('/adashboard', function() {
+    return view('admin.dashboard');
+});
+
+Route::get('/indexuser', function() {
+    return view('admin.user.index');
+});
+
+Route::get('/createuser', function() {
+    return view('admin.user.create');
+});
+
+Route::get('/edituser', function() {
+    return view('admin.user.edit');
+});
+
+Route::get('/indexproduk', function() {
+    return view('admin.produk.index');
+});
+
+Route::get('/createproduk', function() {
+    return view('admin.produk.create');
+});
+
+Route::get('/editproduk', function() {
+    return view('admin.produk.edit');
 });
 
 Route::get('/dashboard', function () {
@@ -32,11 +88,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('admin', function () {
+Route::get('aadmin', function () {
     return  '<h1>Test Admin</h1>';
 })->middleware(['auth', 'verified', 'role:admin']);
 
-Route::get('user', function () {
+Route::get('uuser', function () {
     return  '<h1>Test User</h1>';
 })->middleware(['auth', 'verified', 'role:user']);
 
