@@ -17,4 +17,8 @@ class Produk extends Model
         'stok',
         'deskripsi',
     ];
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

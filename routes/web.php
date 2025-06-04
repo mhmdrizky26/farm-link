@@ -59,6 +59,7 @@ Route::get('/', [WelcomeController::class, 'index'])->name('post');
 
 Route::middleware(['auth', 'verified', 'role:user'])->group(function () {
     Route::get('/single-news/{id}', [WelcomeController::class, 'showNews'])->name('single-news');
+    Route::post('/comments/{produkId}', [WelcomeController::class, 'store'])->name('comments.store');
 });
 
 

@@ -37,49 +37,38 @@
 						</div>
 
 						<div class="comments-list-wrap">
-							<h3 class="comment-count-title">3 Comments</h3>
-							<div class="comment-list">
-								<div class="single-comment-body">
-									<div class="comment-user-avater">
-										<img src="{{ asset('user/assets/img/avaters/avatar1.png') }}" alt="">
-									</div>
-									<div class="comment-text-body">
-										<h4>Jenny Joe <span class="comment-date">Aprl 26, 2020</span> <a href="#">reply</a></h4>
-										<p>Nunc risus ex, tempus quis purus ac, tempor consequat ex. Vivamus sem magna, maximus at est id, maximus aliquet nunc. Suspendisse lacinia velit a eros porttitor, in interdum ante faucibus Suspendisse lacinia velit a eros porttitor, in interdum ante faucibus.</p>
-									</div>
-									<div class="single-comment-body child">
-										<div class="comment-user-avater">
-											<img src="{{ asset('user/assets/img/avaters/avatar3.png') }}" alt="">
-										</div>
-										<div class="comment-text-body">
-											<h4>Simon Soe <span class="comment-date">Aprl 27, 2020</span> <a href="#">reply</a></h4>
-											<p>Nunc risus ex, tempus quis purus ac, tempor consequat ex. Vivamus sem magna, maximus at est id, maximus aliquet nunc. Suspendisse lacinia velit a eros porttitor, in interdum ante faucibus.</p>
-										</div>
-									</div>
-								</div>
-								<div class="single-comment-body">
-									<div class="comment-user-avater">
-										<img src="{{ asset('user/assets/img/avaters/avatar2.png') }}" alt="">
-									</div>
-									<div class="comment-text-body">
-										<h4>Addy Aoe <span class="comment-date">May 12, 2020</span> <a href="#">reply</a></h4>
-										<p>Nunc risus ex, tempus quis purus ac, tempor consequat ex. Vivamus sem magna, maximus at est id, maximus aliquet nunc. Suspendisse lacinia velit a eros porttitor, in interdum ante faucibus Suspendisse lacinia velit a eros porttitor, in interdum ante faucibus.</p>
-									</div>
-								</div>
-							</div>
-						</div>
+                            <h3 class="comment-count-title">
+                                {{ $produk->comments->count() }} Comments
+                            </h3>
 
+                            <div class="comment-list">
+                                @foreach ($produk->comments as $comment)
+                                    <div class="single-comment-body">
+                                        <div class="comment-user-avater">
+                                            <img src="{{ asset('user/assets/img/avaters/avatar1.png') }}" alt="">
+                                        </div>
+                                        <div class="comment-text-body">
+                                            <h4>
+                                                {{ $comment->user->name ?? 'User tidak ditemukan' }}
+                                                <span class="comment-date">{{ $comment->created_at->format('M d, Y') }}</span>
+                                            </h4>
+                                            <p>{{ $comment->content }}</p>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
 						<div class="comment-template">
 							<h4>Leave a comment</h4>
 							<p>If you have a comment dont feel hesitate to send us your opinion.</p>
-							<form action="index.html">
-								<p>
-									<input type="text" placeholder="Your Name">
-									<input type="email" placeholder="Your Email">
-								</p>
-								<p><textarea name="comment" id="comment" cols="30" rows="10" placeholder="Your Message"></textarea></p>
-								<p><input type="submit" value="Submit"></p>
-							</form>
+                                <form action="{{ route('comments.store', $produk->id) }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="produk_id" value="{{ $produk->id }}">
+                                    <p>
+                                        <textarea name="content" id="comment" cols="30" rows="10" placeholder="Your Message"></textarea>
+                                    </p>
+                                    <p><input type="submit" value="Submit"></p>
+                                </form>
 						</div>
 					</div>
 				</div>
